@@ -2,3 +2,28 @@ Sat, May 17, 2025  2:11:58 PM:
  tests:  0|5
 total_score: 0/70
 3f0e54c
+Sat, May 17, 2025  2:22:40 PM: 
+ sudoku.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+Compilation failed
+In file included from test.c:5:0:
+sudoku.c: In function 'is_valid':
+sudoku.c:55:5: error: 'fila' undeclared (first use in this function)
+     fila[n->sudo[i][j]]=1;
+     ^~~~
+sudoku.c:55:5: note: each undeclared identifier is reported only once for each function it appears in
+sudoku.c:55:18: error: 'i' undeclared (first use in this function)
+     fila[n->sudo[i][j]]=1;
+                  ^
+sudoku.c:55:21: error: 'j' undeclared (first use in this function)
+     fila[n->sudo[i][j]]=1;
+                     ^
+sudoku.c:65:5: error: 'col' undeclared (first use in this function)
+     col[n->sudo[i][j]]=1;
+     ^~~
+sudoku.c: In function 'get_adj_nodes':
+sudoku.c:99:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+cc1.exe: all warnings being treated as errors
+3113320
