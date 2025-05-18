@@ -47,10 +47,11 @@ int is_valid(Node* n){
     for (int i=0 ; i<9 ; i++){ //validar filas
         int fila[10]={0};
         for (int j=0 ; j<9 ; j++){
-            if(n->sudo[i][j] !=0) {
-                if(fila[n->sudo[i][j]]==1)
+            int num = n->sudo[i][j];
+            if(num !=0) {
+                if(fila[num]==1)
                     return 0;
-                fila[n->sudo[i][j]]=1;
+                fila[num]=1;
             }
         }
     }
@@ -59,26 +60,26 @@ int is_valid(Node* n){
     for (int i=0 ; i<9 ; i++) {
       int col[10]={0};
         for (int j=0 ; j<9 ; j++){
-          if (n->sudo[j][i] !=0){
-            if(col[n->sudo[i][j]]==1)
-                return 0;
-            col[n->sudo[j][i]]=1;
+            int num = n->sudo[j][i];
+          if (num !=0){
+            if(col[num]) return 0;
+            col[num]= 1;
           }
         }
     }
     
-    for (int i=0 ; i<9 ; i+=3){
-        for (int j=0 ; j<9 ; j+=3){
-            int box[10]={0};
-            for (int k=0 ; k<3 ; k++){
-                for (int l=0 ; l<3 ; l++){
-                    if(n->sudo[i+k][j+l] !=0){
-                        if(box[n->sudo[i+k][j+l]]==1)
-                            return 0;
-                        box[n->sudo[i+k][j+l]]=1;
-                    }
-                }
+    for (int i=0 ; i<9 ; i++){
+        int box[10]={0};
+        for (int j=0 ; j<9 ; j++){
+            int k = (i/3)*3 + j/3;
+            int l = (i%3)*3 + j%3;
+            int num = n->sudo[k][l];
+            if(num !=0) {
+                if(box[num]== 1)
+                    return 0;
+                box[num]= 1;
             }
+            
         }
     }
     return 1;
@@ -93,8 +94,8 @@ List* get_adj_nodes(Node* n){
         for (int j=0 ; j<9 ; j++) {
             if(n->sudo[i][j] == 0) {
                 for (int k=1 ; k<=9 ; k++) {
-                    Node* new=copy(n);
-                    new->sudo[i][j]=k;
+                    Node* new = copy(n);
+                    new->sudo[i][j] = k;
                     if(is_valid(new)){
                         pushBack(list, new);
                     } else {
@@ -110,7 +111,13 @@ List* get_adj_nodes(Node* n){
 
 
 int is_final(Node* n){
-    return 0;
+    for (int i=0 ; i<9 ; i++){
+        for (int j=0 ; j<9 ; j++) {
+            if(n->sudo[i][j] == 0)
+                return 0;
+        }
+    }
+    return 1;
 }
 
 Node* DFS(Node* initial, int* cont){
